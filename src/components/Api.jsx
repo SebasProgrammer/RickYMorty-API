@@ -26,6 +26,7 @@ const Api = () => {
             alert("Entrada no válida")
         }
         setSearchLoc("")
+        setPage(1)
     }
 
     const [page, setPage] = useState(1)
@@ -39,15 +40,25 @@ const Api = () => {
 
     return (
         <div>
-            <input type="number" max={126} min={1} value={searchLoc} onChange = {(e) => setSearchLoc(e.target.value)} placeholder="Locación [1-126]"/>
-            <button onClick={search}>Buscar</button>
+            <div className='find'>
+                <input type="number" max={126} min={1} value={searchLoc} onChange = {(e) => setSearchLoc(e.target.value)} placeholder="Locación [1-126]"/>
+                <button className='search' onClick={search}><i className="bx bx-search"></i></button>
+            </div>
+            <br />
             <Location rickLocation={rickLocation}/>
-            <Page page={page} setPage={setPage} quantyPage={quantyPage} />
-            { residents?.map((r)=>(
-                <ResidentInfo url={r} key={r}/>
-            ))
-            }
+            <br />
+            <Page page={page} setPage={setPage} quantyPage={quantyPage} residents={rickLocation.residents?.length}/>
+            <br />
+
+            <h1>Residents</h1>
+            <div className='residentsList'>
+                { residents?.map((r)=>(
+                    <ResidentInfo url={r} key={r}/>
+                    ))
+                }
+            </div>
         </div>
+            
     );
 };
 
